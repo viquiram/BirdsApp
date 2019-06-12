@@ -1,12 +1,34 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {RestService} from '../rest.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit  {
 
-  constructor() {}
+  constructor(private router: Router) {
+  }
 
+  ngOnInit() {
+  }
+
+  displayBirds() {
+    // TODO
+  }
+
+  addBird() {
+    // TODO
+  }
+
+  displayInfo() {
+    // TODO
+  }
+
+  logOff() {
+    RestService.setUserId('');
+    this.router.navigate(['/login']);
+  }
 }

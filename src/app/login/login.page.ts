@@ -51,8 +51,7 @@ export class LoginPage implements OnInit {
     const status = response.status;
 
     if (status === 'OK') {
-      // TODO: Save ID
-      const id = response.id;
+      RestService.setUserId(response.id);
       this.router.navigate(['/home']);
     } else {
       const error = response.message;
