@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary" text-center>
+    <ion-title>Avistamiento de aves</ion-title>
+    <ion-text color="secondary">Desarrollado por: Viviana Quirama</ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <ion-list>
+      <ion-item>
+        <ion-img src="assets/imgs/logo.png" class="ion-padding-bottom"></ion-img>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="person" slot="start"></ion-icon>
+        <ion-label position="stacked">Usuario:</ion-label>
+        <ion-input formControlName="user" type="text" placeholder="Usuario"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="key" slot="start"></ion-icon>
+        <ion-label position="stacked">Contraseña:</ion-label>
+        <ion-input formControlName="password" type="password" placeholder="Contraseña"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <ion-button expand="block" type="submit" [disabled]="!loginForm.valid">Acceder</ion-button>
+    </div>
+  </form>
+</ion-content>
