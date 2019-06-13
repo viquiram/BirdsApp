@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: './home/home.module#HomePageModule', canActivate: [AuthGuardService] },
   { path: 'list', loadChildren: './list/list.module#ListPageModule', canActivate: [AuthGuardService] },
   { path: 'detail/:id', loadChildren: './detail/detail.module#DetailPageModule', canActivate: [AuthGuardService] },
+  { path: 'add-sighting/:id', loadChildren: './add-sighting/add-sighting.module#AddSightingPageModule', canActivate: [AuthGuardService] },
 ];
 
 @NgModule({

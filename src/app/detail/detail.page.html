@@ -17,7 +17,7 @@
           <ion-card-content>{{ bird.bird_description }}</ion-card-content>
         </ion-card>
         <div padding>
-          <ion-button expand="block" (click)='addSighting()'>Añadir avistamiento</ion-button>
+          <ion-button expand="block" (click)='addSighting(bird.id)'>Añadir avistamiento</ion-button>
         </div>
       </ion-col>
 

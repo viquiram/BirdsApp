@@ -41,4 +41,14 @@ export class RestService {
   getBirdDetails(birdId) {
     return this.http.get(this.apiUrl + 'getBirdDetails/' + birdId);
   }
+
+  addSighting(birdId, place, long, lat) {
+    const params = new HttpParams()
+        .set('idAve', birdId)
+        .set('place', place)
+        .set('long', long)
+        .set('lat', lat);
+
+    return this.http.post(this.apiUrl + 'addSighting/', params);
+  }
 }

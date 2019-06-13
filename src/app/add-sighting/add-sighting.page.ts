@@ -2,30 +2,46 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from '../rest.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.page.html',
-  styleUrls: ['./detail.page.scss'],
+  selector: 'app-add-sighting',
+  templateUrl: './add-sighting.page.html',
+  styleUrls: ['./add-sighting.page.scss'],
 })
-export class DetailPage implements OnInit {
+export class AddSightingPage implements OnInit {
   isLoading = false;
 
-  bird: any;
+  sightingForm: FormGroup;
+  birdId: string;
 
-  constructor(private alertCtrl: AlertController,
+  constructor(private formBuilder: FormBuilder,
+              private alertCtrl: AlertController,
               private loadingCtrl: LoadingController,
               private router: Router,
               private route: ActivatedRoute,
-              private service: RestService) { }
-
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.getBirdDetails(id);
+              private service: RestService) {
+    this.sightingForm = this.formBuilder.group({
+      place: ['', Validators.required],
+      longitude: ['', Validators.required],
+      latitude: ['', Validators.required]
+    });
   }
 
-  getBirdDetails(birdId) {
-    this.service.getBirdDetails(birdId)
+  ngOnInit() {
+    this.birdId = this.route.snapshot.paramMap.get('id');
+  }
+
+
+  submitSighting() {
+    console.log('Place:' + this.sightingForm.value.place);
+    console.log('Longitude:' + this.sightingForm.value.longitude);
+    console.log('Latitude:' + this.sightingForm.value.latitude);
+
+    this.service.addSighting(this.birdId,
+        this.sightingForm.value.place,
+        this.sightingForm.value.longitude,
+        this.sightingForm.value.latitude)
         .subscribe(
             (data) => { // Success
               this.dismissLoading();
@@ -34,6 +50,7 @@ export class DetailPage implements OnInit {
             (error) => { // Error
               this.dismissLoading();
               this.showError(error.message);
+              this.sightingForm.reset();
             }
         );
     this.presentLoading();
@@ -42,11 +59,12 @@ export class DetailPage implements OnInit {
   processResponse(response) {
     const status = response.status;
 
-    if (status != null) {
+    if (status === 'OK') {
+      this.router.navigate(['/detail/' + this.birdId]);
+    } else {
       const error = response.message;
       this.showError(error);
-    } else {
-      this.bird = response[0];
+      this.sightingForm.reset();
     }
   }
 
@@ -73,9 +91,5 @@ export class DetailPage implements OnInit {
   async dismissLoading() {
     this.isLoading = false;
     return await this.loadingCtrl.dismiss().then(() => console.log('Loading dismissed'));
-  }
-
-  addSighting(birdId) {
-    this.router.navigate(['/add-sighting/' + birdId]);
   }
 }
