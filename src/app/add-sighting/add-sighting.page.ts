@@ -60,12 +60,21 @@ export class AddSightingPage implements OnInit {
     const status = response.status;
 
     if (status === 'OK') {
+      this.showSuccess();
       this.router.navigate(['/detail/' + this.birdId]);
     } else {
       const error = response.message;
       this.showError(error);
       this.sightingForm.reset();
     }
+  }
+
+  async showSuccess() {
+    const alert = await this.alertCtrl.create({
+      message: 'El avistamiento se ha añadido correctamente',
+      buttons: [{text: 'OK', role: 'cancel'}]
+    });
+    await alert.present();
   }
 
   async showError(error) {
