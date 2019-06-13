@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary" text-center>
+    <ion-title>Listado de aves</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="birds.length">
+    <ion-item *ngFor="let bird of birds">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="bird.bird_image"></ion-img>
+      </ion-thumbnail>
+      <ion-label>{{ bird.bird_name }}</ion-label>
+      <ion-text slot="end">
+      <p>Avistamientos</p>
+      <p text-end [ngClass]="(bird.mine == 0) ? 'sighting-other' : 'sighting-mine'">{{ bird.bird_sightings }}</p>
+      </ion-text>
+    </ion-item>
+  </ion-list>
+</ion-content>

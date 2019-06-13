@@ -29,4 +29,8 @@ export class RestService {
 
     return this.http.post(this.apiUrl + 'login/', params);
   }
+
+  getBirds() {
+    return this.http.get(this.apiUrl + 'getBirds/' + RestService.userId);
+  }
 }

@@ -16,7 +16,7 @@ export class HomePage implements OnInit  {
   }
 
   displayBirds() {
-    // TODO
+    this.router.navigate(['/list']);
   }
 
   addBird() {
