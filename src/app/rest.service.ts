@@ -14,6 +14,10 @@ export class RestService {
     console.log('Hello RestProvider Provider');
   }
 
+  static isAuthenticated() {
+    return this.userId != null && this.userId !== '';
+  }
+
   static getUserId(): string {
     return this.userId;
   }
