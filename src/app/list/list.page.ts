@@ -72,4 +72,8 @@ export class ListPage implements OnInit {
     this.isLoading = false;
     return await this.loadingCtrl.dismiss().then(() => console.log('Loading dismissed'));
   }
+
+  addBird() {
+    // TODO
+  }
 }
