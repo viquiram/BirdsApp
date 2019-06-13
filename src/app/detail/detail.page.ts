@@ -1,29 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { RestService } from '../rest.service';
+import {AlertController, LoadingController} from '@ionic/angular';
+import {ActivatedRoute, Router} from '@angular/router';
+import {RestService} from '../rest.service';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.page.html',
-  styleUrls: ['./list.page.scss'],
+  selector: 'app-detail',
+  templateUrl: './detail.page.html',
+  styleUrls: ['./detail.page.scss'],
 })
-export class ListPage implements OnInit {
+export class DetailPage implements OnInit {
   isLoading = false;
 
-  birds: any[] = [];
+  bird: any;
 
   constructor(private alertCtrl: AlertController,
               private loadingCtrl: LoadingController,
               private router: Router,
+              private route: ActivatedRoute,
               private service: RestService) { }
 
   ngOnInit() {
-    this.getBirds();
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.getBirdDetails(id);
   }
 
-  getBirds() {
-    this.service.getBirds()
+  getBirdDetails(birdId) {
+    this.service.getBirdDetails(birdId)
         .subscribe(
             (data) => { // Success
               this.dismissLoading();
@@ -44,7 +46,7 @@ export class ListPage implements OnInit {
       const error = response.message;
       this.showError(error);
     } else {
-      this.birds = response;
+      this.bird = response[0];
     }
   }
 
@@ -73,11 +75,7 @@ export class ListPage implements OnInit {
     return await this.loadingCtrl.dismiss().then(() => console.log('Loading dismissed'));
   }
 
-  onItemClick(birdId) {
-    this.router.navigate(['/detail/' + birdId]);
-  }
-
-  addBird() {
+  addSighting() {
     // TODO
   }
 }

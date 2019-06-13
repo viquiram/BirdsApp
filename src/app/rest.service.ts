@@ -33,4 +33,8 @@ export class RestService {
   getBirds() {
     return this.http.get(this.apiUrl + 'getBirds/' + RestService.userId);
   }
+
+  getBirdDetails(birdId) {
+    return this.http.get(this.apiUrl + 'getBirdDetails/' + birdId);
+  }
 }

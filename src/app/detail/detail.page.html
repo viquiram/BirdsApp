@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary" text-center>
+    <ion-title>Detalle del ave</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="bird">
+    <ion-row>
+      <ion-col size-md="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-img [src]="bird.bird_image"></ion-img>
+            <ion-card-title>{{ bird.bird_name }}</ion-card-title>
+            <ion-card-subtitle color="secondary">Avistamientos: {{ bird.bird_sightings }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>{{ bird.bird_description }}</ion-card-content>
+        </ion-card>
+        <div padding>
+          <ion-button expand="block" (click)='addSighting()'>Añadir avistamiento</ion-button>
+        </div>
+      </ion-col>
+
+      <ion-col size-md="8">
+        <ion-card *ngIf="bird.sightings_list.length">
+          <ion-card-header>
+            <ion-card-title>Listado de avistamientos</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item *ngFor="let sighting of bird.sightings_list" padding-top>
+              <ion-label>{{ sighting.place }}</ion-label>
+              <ion-text color="medium" slot="end" text-end>
+                <p>Longitud: {{ sighting.long | number : '1.6-6' }}</p>
+                <p>Latitud: {{ sighting.lat | number : '1.6-6' }}</p>
+              </ion-text>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

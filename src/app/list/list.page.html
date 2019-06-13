@@ -6,14 +6,14 @@
 
 <ion-content>
   <ion-list *ngIf="birds.length">
-    <ion-item *ngFor="let bird of birds">
+    <ion-item *ngFor="let bird of birds" (click)="onItemClick(bird.id)">
       <ion-thumbnail slot="start">
         <ion-img [src]="bird.bird_image"></ion-img>
       </ion-thumbnail>
       <ion-label>{{ bird.bird_name }}</ion-label>
-      <ion-text slot="end">
+      <ion-text color="medium" slot="end" text-end>
       <p>Avistamientos</p>
-      <p text-end [ngClass]="(bird.mine == 0) ? 'sighting-other' : 'sighting-mine'">{{ bird.bird_sightings }}</p>
+      <p [ngClass]="(bird.mine == 0) ? 'sighting-other' : 'sighting-mine'">{{ bird.bird_sightings }}</p>
       </ion-text>
     </ion-item>
   </ion-list>
