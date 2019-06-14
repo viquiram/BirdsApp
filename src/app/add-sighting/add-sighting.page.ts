@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { RestService } from '../rest.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -8,7 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 @Component({
   selector: 'app-add-sighting',
   templateUrl: './add-sighting.page.html',
-  styleUrls: ['./add-sighting.page.scss'],
+  styleUrls: ['./add-sighting.page.scss']
 })
 export class AddSightingPage implements OnInit {
   isLoading = false;
@@ -24,8 +24,8 @@ export class AddSightingPage implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private alertCtrl: AlertController,
               private loadingCtrl: LoadingController,
-              private router: Router,
               private route: ActivatedRoute,
+              private navCtrl: NavController,
               private service: RestService,
               private geolocation: Geolocation) {
     this.sightingForm = this.formBuilder.group({
@@ -86,7 +86,7 @@ export class AddSightingPage implements OnInit {
 
     if (status === 'OK') {
       this.showSuccess();
-      this.router.navigate(['/detail/' + this.birdId]);
+      this.navCtrl.pop();
     } else {
       const error = response.message;
       this.showError(error);

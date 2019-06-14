@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { RestService } from '../rest.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class ListPage implements OnInit {
 
   constructor(private alertCtrl: AlertController,
               private loadingCtrl: LoadingController,
-              private router: Router,
+              private navCtrl: NavController,
               private service: RestService) { }
 
   ngOnInit() {
@@ -77,10 +76,10 @@ export class ListPage implements OnInit {
   }
 
   onItemClick(birdId) {
-    this.router.navigate(['/detail/' + birdId]);
+    this.navCtrl.navigateForward('/detail/' + birdId);
   }
 
   addBird() {
-    this.router.navigate(['/add-bird/']);
+    this.navCtrl.navigateForward('/add-bird');
   }
 }

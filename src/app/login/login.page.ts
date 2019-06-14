@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { RestService } from '../rest.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class LoginPage implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private alertCtrl: AlertController,
               private loadingCtrl: LoadingController,
-              private router: Router,
+              private navCtrl: NavController,
               private service: RestService) {
     this.loginForm = this.formBuilder.group({
       user: ['', Validators.required],
@@ -52,7 +51,7 @@ export class LoginPage implements OnInit {
 
     if (status === 'OK') {
       RestService.setUserId(response.id);
-      this.router.navigate(['/home']);
+      this.navCtrl.navigateForward('/home');
     } else {
       const error = response.message;
       this.showError(error);

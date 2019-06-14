@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertController, LoadingController} from '@ionic/angular';
-import {ActivatedRoute, Router} from '@angular/router';
-import {RestService} from '../rest.service';
-import {Geolocation} from '@ionic-native/geolocation/ngx';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { RestService } from '../rest.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-add-bird',
@@ -24,8 +23,7 @@ export class AddBirdPage implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private alertCtrl: AlertController,
               private loadingCtrl: LoadingController,
-              private router: Router,
-              private route: ActivatedRoute,
+              private navCtrl: NavController,
               private service: RestService,
               private geolocation: Geolocation) {
     this.birdForm = this.formBuilder.group({
@@ -107,7 +105,7 @@ export class AddBirdPage implements OnInit {
 
     if (status === 'OK') {
       this.showSuccess();
-      this.router.navigate(['/list']);
+      this.navCtrl.pop();
     } else {
       const error = response.message;
       this.showError(error);

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {RestService} from '../rest.service';
+import { Component, OnInit } from '@angular/core';
+import { RestService } from '../rest.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +9,18 @@ import {RestService} from '../rest.service';
 })
 export class HomePage implements OnInit  {
 
-  constructor(private router: Router) {
+  constructor(private navCtrl: NavController,) {
   }
 
   ngOnInit() {
   }
 
   displayBirds() {
-    this.router.navigate(['/list']);
+    this.navCtrl.navigateForward('/list');
   }
 
   addBird() {
-    this.router.navigate(['/add-bird/']);
+    this.navCtrl.navigateForward('/add-bird');
   }
 
   displayInfo() {
@@ -29,6 +29,6 @@ export class HomePage implements OnInit  {
 
   logOff() {
     RestService.deleteUserId();
-    this.router.navigate(['/login']);
+    this.navCtrl.navigateRoot('/login');
   }
 }

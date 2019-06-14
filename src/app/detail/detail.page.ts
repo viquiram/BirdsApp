@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { RestService } from '../rest.service';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
-  styleUrls: ['./detail.page.scss'],
+  styleUrls: ['./detail.page.scss']
 })
 export class DetailPage implements OnInit {
   isLoading = false;
@@ -15,9 +15,10 @@ export class DetailPage implements OnInit {
 
   constructor(private alertCtrl: AlertController,
               private loadingCtrl: LoadingController,
-              private router: Router,
               private route: ActivatedRoute,
-              private service: RestService) { }
+              private navCtrl: NavController,
+              private service: RestService
+              ) { }
 
   ngOnInit() {
   }
@@ -79,6 +80,6 @@ export class DetailPage implements OnInit {
   }
 
   addSighting(birdId) {
-    this.router.navigate(['/add-sighting/' + birdId]);
+    this.navCtrl.navigateForward('/add-sighting/' + birdId);
   }
 }
