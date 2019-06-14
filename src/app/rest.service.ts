@@ -6,24 +6,21 @@ import { HttpParams } from '@angular/common/http';
   providedIn: 'root'
 })
 export class RestService {
-  private static userId: string;
-
   apiUrl = 'http://dev.contanimacion.com/birds/public/';
 
-  constructor(public http: HttpClient) {
-    console.log('Hello RestProvider Provider');
-  }
+  constructor(public http: HttpClient) { }
 
-  static isAuthenticated() {
-    return this.userId != null && this.userId !== '';
-  }
-
-  static getUserId(): string {
-    return this.userId;
+  static isAuthenticated(): boolean {
+    const userId = store.get('userId');
+    return userId != null && userId !== '';
   }
 
   static setUserId(id) {
-    this.userId = id;
+    store.set('userId', id);
+  }
+
+  static deleteUserId() {
+    store.remove('userId');
   }
 
   login(user, password) {
@@ -35,7 +32,7 @@ export class RestService {
   }
 
   getBirds() {
-    return this.http.get(this.apiUrl + 'getBirds/' + RestService.userId);
+    return this.http.get(this.apiUrl + 'getBirds/' + store.get('userId'));
   }
 
   getBirdDetails(birdId) {
