@@ -105,7 +105,7 @@ export class AddBirdPage implements OnInit {
 
     if (status === 'OK') {
       this.showSuccess();
-      this.navCtrl.pop();
+      this.navCtrl.navigateBack('list');
     } else {
       const error = response.message;
       this.showError(error);
@@ -150,5 +150,9 @@ export class AddBirdPage implements OnInit {
     if (this.addSighting) {
       this.getLocation();
     }
+  }
+
+  goBack() {
+    this.navCtrl.navigateBack('list');
   }
 }

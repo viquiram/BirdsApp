@@ -82,4 +82,8 @@ export class DetailPage implements OnInit {
   addSighting(birdId) {
     this.navCtrl.navigateForward('/add-sighting/' + birdId);
   }
+
+  goBack() {
+    this.navCtrl.navigateBack('list');
+  }
 }

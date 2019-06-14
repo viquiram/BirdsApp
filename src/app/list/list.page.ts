@@ -82,4 +82,8 @@ export class ListPage implements OnInit {
   addBird() {
     this.navCtrl.navigateForward('/add-bird');
   }
+
+  goMenu() {
+    this.navCtrl.navigateBack('home');
+  }
 }

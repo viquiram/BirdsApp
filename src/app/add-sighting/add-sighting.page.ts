@@ -86,7 +86,7 @@ export class AddSightingPage implements OnInit {
 
     if (status === 'OK') {
       this.showSuccess();
-      this.navCtrl.pop();
+      this.navCtrl.navigateBack('/detail/' + this.birdId);
     } else {
       const error = response.message;
       this.showError(error);
@@ -125,5 +125,9 @@ export class AddSightingPage implements OnInit {
   async dismissLoading() {
     this.isLoading = false;
     return await this.loadingCtrl.dismiss().then(() => console.log('Loading dismissed'));
+  }
+
+  goBack() {
+    this.navCtrl.navigateBack('/detail/' + this.birdId);
   }
 }
