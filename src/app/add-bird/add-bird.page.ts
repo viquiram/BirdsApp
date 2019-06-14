@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertController, LoadingController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RestService} from '../rest.service';
+import {Geolocation} from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-add-bird',
@@ -12,6 +13,11 @@ import {RestService} from '../rest.service';
 export class AddBirdPage implements OnInit {
   addSighting = false;
   isLoading = false;
+  longDisabled = true;
+  latDisabled = true;
+
+  longitude: number;
+  latitude: number;
 
   birdForm: FormGroup;
 
@@ -20,7 +26,8 @@ export class AddBirdPage implements OnInit {
               private loadingCtrl: LoadingController,
               private router: Router,
               private route: ActivatedRoute,
-              private service: RestService) {
+              private service: RestService,
+              private geolocation: Geolocation) {
     this.birdForm = this.formBuilder.group({
       name: ['', Validators.required],
       desc: ['', Validators.required],
@@ -32,6 +39,24 @@ export class AddBirdPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  getLocation() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      // Success
+      this.dismissLoading();
+      this.longitude = resp.coords.longitude;
+      this.latitude = resp.coords.latitude;
+    }).catch((error) => {
+      // Error
+      const message = 'Se ha producido un error: ' + error +
+          '. Se deberá introducir la localización manualmente.';
+      this.dismissLoading();
+      this.showError(message);
+      this.longDisabled = false;
+      this.latDisabled = false;
+    });
+    this.presentLoading();
   }
 
   submitBird() {
@@ -121,5 +146,11 @@ export class AddBirdPage implements OnInit {
   async dismissLoading() {
     this.isLoading = false;
     return await this.loadingCtrl.dismiss().then(() => console.log('Loading dismissed'));
+  }
+
+  checkboxChanged() {
+    if (this.addSighting) {
+      this.getLocation();
+    }
   }
 }

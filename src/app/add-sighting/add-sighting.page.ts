@@ -3,6 +3,7 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from '../rest.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-add-sighting',
@@ -11,16 +12,22 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddSightingPage implements OnInit {
   isLoading = false;
+  longDisabled = true;
+  latDisabled = true;
+
+  birdId: string;
+  longitude: number;
+  latitude: number;
 
   sightingForm: FormGroup;
-  birdId: string;
 
   constructor(private formBuilder: FormBuilder,
               private alertCtrl: AlertController,
               private loadingCtrl: LoadingController,
               private router: Router,
               private route: ActivatedRoute,
-              private service: RestService) {
+              private service: RestService,
+              private geolocation: Geolocation) {
     this.sightingForm = this.formBuilder.group({
       place: ['', Validators.required],
       longitude: ['', Validators.required],
@@ -30,8 +37,26 @@ export class AddSightingPage implements OnInit {
 
   ngOnInit() {
     this.birdId = this.route.snapshot.paramMap.get('id');
+    this.getLocation();
   }
 
+  getLocation() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      // Success
+      this.dismissLoading();
+      this.longitude = resp.coords.longitude;
+      this.latitude = resp.coords.latitude;
+    }).catch((error) => {
+      // Error
+      const message = 'Se ha producido un error: ' + error +
+          '. Se deberá introducir la localización manualmente.';
+      this.dismissLoading();
+      this.showError(message);
+      this.longDisabled = false;
+      this.latDisabled = false;
+    });
+    this.presentLoading();
+  }
 
   submitSighting() {
     console.log('Place:' + this.sightingForm.value.place);

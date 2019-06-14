@@ -22,7 +22,8 @@
       <ion-item>
         <ion-icon name="pin" slot="start"></ion-icon>
         <ion-label position="stacked">Avistamiento:</ion-label>
-        <ion-checkbox formControlName="sighting" color="primary" [(ngModel)]="addSighting" align-self-start></ion-checkbox>
+        <ion-checkbox formControlName="sighting" color="primary" align-self-start
+                      [(ngModel)]="addSighting" (ionChange)="checkboxChanged()"></ion-checkbox>
       </ion-item>
 
       <ion-item *ngIf="addSighting">
@@ -34,13 +35,15 @@
       <ion-item *ngIf="addSighting">
         <ion-icon name="locate" slot="start"></ion-icon>
         <ion-label position="stacked">Longitud:</ion-label>
-        <ion-input formControlName="longitude" type="number" placeholder="Longitud"></ion-input>
+        <ion-input formControlName="longitude" type="number" placeholder="Longitud" disabled="{{longDisabled}}"
+                   [(ngModel)]="longitude"></ion-input>
       </ion-item>
 
       <ion-item *ngIf="addSighting">
         <ion-icon name="locate" slot="start"></ion-icon>
         <ion-label position="stacked">Latitud:</ion-label>
-        <ion-input formControlName="latitude" type="number" placeholder="Latitud"></ion-input>
+        <ion-input formControlName="latitude" type="number" placeholder="Latitud" disabled="{{latDisabled}}"
+                   [(ngModel)]="latitude"></ion-input>
       </ion-item>
     </ion-list>
 
