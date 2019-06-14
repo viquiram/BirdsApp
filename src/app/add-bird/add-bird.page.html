@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary" text-center>
+    <ion-title>Añadir ave</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="birdForm" (ngSubmit)="submitBird()">
+    <ion-list>
+      <ion-item>
+        <ion-icon name="paw" slot="start"></ion-icon>
+        <ion-label position="stacked">Nombre:</ion-label>
+        <ion-input formControlName="name" type="text" placeholder="Nombre"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="list" slot="start"></ion-icon>
+        <ion-label position="stacked">Descripción:</ion-label>
+        <ion-textarea formControlName="desc" placeholder="Descripción"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="pin" slot="start"></ion-icon>
+        <ion-label position="stacked">Avistamiento:</ion-label>
+        <ion-checkbox formControlName="sighting" color="primary" [(ngModel)]="addSighting" align-self-start></ion-checkbox>
+      </ion-item>
+
+      <ion-item *ngIf="addSighting">
+        <ion-icon name="map" slot="start"></ion-icon>
+        <ion-label position="stacked">Lugar:</ion-label>
+        <ion-input formControlName="place" type="text" placeholder="Lugar"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="addSighting">
+        <ion-icon name="locate" slot="start"></ion-icon>
+        <ion-label position="stacked">Longitud:</ion-label>
+        <ion-input formControlName="longitude" type="number" placeholder="Longitud"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="addSighting">
+        <ion-icon name="locate" slot="start"></ion-icon>
+        <ion-label position="stacked">Latitud:</ion-label>
+        <ion-input formControlName="latitude" type="number" placeholder="Latitud"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div padding>
+      <ion-button expand="block" type="submit" [disabled]="!birdForm.valid">Añadir</ion-button>
+    </div>
+  </form>
+</ion-content>

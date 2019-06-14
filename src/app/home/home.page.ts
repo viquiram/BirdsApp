@@ -20,15 +20,15 @@ export class HomePage implements OnInit  {
   }
 
   addBird() {
-    // TODO
+    this.router.navigate(['/add-bird/']);
   }
 
   displayInfo() {
-    // TODO
+    // Nothing
   }
 
   logOff() {
-    RestService.setUserId('');
+    RestService.deleteUserId();
     this.router.navigate(['/login']);
   }
 }

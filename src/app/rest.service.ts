@@ -48,4 +48,24 @@ export class RestService {
 
     return this.http.post(this.apiUrl + 'addSighting/', params);
   }
+
+  addBird(name, desc, place?, long?, lat?) {
+    let params: HttpParams;
+    if (place && long && lat) {
+      params = new HttpParams()
+          .set('idUser', store.get('userId'))
+          .set('bird_name', name)
+          .set('bird_description', desc)
+          .set('place', place)
+          .set('long', long)
+          .set('lat', lat);
+    } else {
+      params = new HttpParams()
+          .set('idUser', store.get('userId'))
+          .set('bird_name', name)
+          .set('bird_description', desc);
+    }
+
+    return this.http.post(this.apiUrl + 'addBird/', params);
+  }
 }

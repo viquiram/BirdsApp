@@ -78,6 +78,6 @@ export class ListPage implements OnInit {
   }
 
   addBird() {
-    // TODO
+    this.router.navigate(['/add-bird/']);
   }
 }
