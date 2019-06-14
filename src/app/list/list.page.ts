@@ -19,6 +19,9 @@ export class ListPage implements OnInit {
               private service: RestService) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.getBirds();
   }
 

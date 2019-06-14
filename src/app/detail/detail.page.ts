@@ -20,6 +20,9 @@ export class DetailPage implements OnInit {
               private service: RestService) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     const id = this.route.snapshot.paramMap.get('id');
     this.getBirdDetails(id);
   }
